@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package marketplace.payment;
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+service PaymentService {
+  rpc GetPaymentMethods(google.protobuf.Empty) returns (stream PaymentMethod);
+  rpc AddPaymentMethods(PaymentMethod) returns (google.protobuf.Empty);
+}
+
+message PaymentMethod {
+  string account_no = 1;
+  google.protobuf.Timestamp expiry_date = 2;
+  oneof payment_type {
+    uint32 credit_card = 3;
+    uint32 paypal = 4;
+    // Others
+  }
+}

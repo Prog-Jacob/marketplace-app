@@ -52,9 +52,10 @@ Trace the trajectory of requests and responses within the API, offering clarity 
 ## Payment Process
 
 ![Payment Process](./Assets/PaymentProcess.webp)
+
 Source: [Stripe Integration with React & Flask | by Felix Pitterling | Medium](https://medium.com/@f.pitterling/stripe-integration-with-react-flask-e7aac635b139)
 
-# Database Design (ERD
+# Database Design (ERD)
 
 The ERD diagram showcases relationships between different entities in the database, ensuring data integrity and coherence.
 

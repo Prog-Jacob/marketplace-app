@@ -7,6 +7,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .collect();
 
     tonic_build::configure()
+        .compile_well_known_types(true)
+        .extern_path(".google.rpc.Code", "::prost::alloc::vec::Vec")
         .compile(&proto_files, &["../shared/proto"])
         .map_err(|e| format!("{:?}", e))?;
     Ok(())

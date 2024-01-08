@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+package marketplace.user;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+service UserService {
+  rpc Login(UserLoginData) returns (User);
+  rpc Signup(User) returns (google.protobuf.Empty);
+
+  rpc ConfirmEmail(EmailConfirmation) returns (google.protobuf.Empty);
+  rpc RecoverPassword(PasswordRecovery) returns (google.protobuf.Empty);
+  rpc InitiatePasswordRecovery(google.protobuf.Empty)
+      returns (google.protobuf.Empty);
+
+  rpc UpdateInfo(User) returns (User);
+
+  rpc AddReview(Review) returns (google.protobuf.Empty);
+}
+
+message User {
+  UserAccount account = 1;
+  UserAddress address = 2;
+}
+
+message UserAccount {
+  uint64 user_id = 1;
+  uint64 role_id = 2;
+  string first_name = 3;
+  string last_name = 4;
+  google.protobuf.Timestamp birth_date = 5;
+  string thumbnail_url = 6;
+}
+
+message UserAddress {
+  string phone = 1;
+  string country = 2;
+  string city = 3;
+  string address1 = 4;
+  string address2 = 5;
+  uint32 postal_code = 6;
+}
+
+message UserLoginData {
+  string email = 1;
+  string password = 2;
+}
+
+message PasswordRecovery {
+  uint32 recovery_token = 1;
+  string new_password = 2;
+}
+
+message EmailConfirmation { uint32 confirmation_token = 1; }
+
+message Review {
+  uint32 stars = 1;
+  string review = 2;
+
+  oneof review_target {
+    uint64 product_id = 3;
+    uint64 seller_id = 4;
+    uint64 store_id = 5;
+  }
+}

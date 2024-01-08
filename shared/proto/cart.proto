@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package marketplace.cart;
+
+import "product.proto";
+import "payment.proto";
+import "google/protobuf/empty.proto";
+
+service CartService {
+  rpc AddToCart(CartProduct) returns (product.Product);
+  rpc RemoveFromCart(CartProduct) returns (google.protobuf.Empty);
+  rpc ViewCart(google.protobuf.Empty) returns (stream product.Product);
+
+  rpc PurchaseCart(PaymentDetails) returns (google.protobuf.Empty);
+}
+
+message CartProduct {
+  string product_id = 1;
+  uint32 amount = 2;
+}
+
+message PaymentDetails {
+  payment.PaymentMethod payment = 1;
+  uint32 ccv = 2;
+}
